@@ -1,0 +1,40 @@
+name: Release pipeline
+
+on:
+  push:
+    tags:
+      -'v*'
+      
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Build
+        run: mvn clean package
+
+      - name: Rename artifact
+        run: |
+          cp target/*.jar target/app-${{ github.ref_name }}.jar
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          files: target/app-${{ github.ref_name }}.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
