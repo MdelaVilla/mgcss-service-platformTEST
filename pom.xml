@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mgcss</groupId>
-	<artifactId>mgcss-service-serviceplatform</artifactId>
+	<artifactId>mgcss-service-serviceplatformTEST</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mgcss-service-platform</name>
 	<description>Demo project for Spring Boot</description>
